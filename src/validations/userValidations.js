@@ -1,19 +1,17 @@
 import joi from "joi";
-import { ROOM_TYPE } from "../utils/constants";
-import { validationErrorResponseData } from "../utils/responses";
-import { validationMessageKey } from "../utils/helper";
+import { validationErrorResponseData } from "../utils/responses.js";
+import { validationMessageKey } from "../utils/helper.js";
 
-export const createRoomValidation = (req, res, callback) => {
+export const addUserValidation = (req, res, next) => {
   const schema = joi.object({
-    name: joi.string().max(50).required(),
-    type: joi.valid(...Object.values(ROOM_TYPE)),
+    username: joi.string().max(25).required(),
   });
   const { error } = schema.validate(req);
   if (error) {
     return validationErrorResponseData(
       res,
-      res.__(validationMessageKey("createRoomValidation", error))
+      validationMessageKey("addUserValidation", error),
     );
   }
-  return callback(true);
+  next();
 };

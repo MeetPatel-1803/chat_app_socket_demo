@@ -1,9 +1,26 @@
 import { Router } from "express";
-import { createUser, getUser } from "../../controllers/userController.js";
+import { addUser, getUser } from "../../controllers/userController.js";
+import {
+  register,
+  login,
+  forgotPassword,
+} from "../../controllers/authController.js";
+import {
+  registerValidation,
+  loginValidation,
+  forgotPasswordValidation,
+} from "../../validations/authValidations.js";
+import { authMiddleware } from "../../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.post("/user", createUser);
-router.get("/user", getUser);
+// Authentication Routes
+router.post("/register", registerValidation, register);
+router.post("/login", loginValidation, login);
+router.post("/forgot-password", forgotPasswordValidation, forgotPassword);
+
+// User Routes
+router.post("/user", addUser);
+router.get("/user", authMiddleware, getUser);
 
 export default router;

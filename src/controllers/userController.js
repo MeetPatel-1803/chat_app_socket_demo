@@ -6,12 +6,12 @@ import {
   internalServerErrorResponse,
   successResponseData,
 } from "../utils/responses.js";
-import { createUserValidation } from "../validations/roomValidations.js";
+import { addUserValidation } from "../validations/userValidations.js";
 
-export const createUser = async (req, res) => {
+export const addUser = async (req, res) => {
   try {
     const reqParam = req.body;
-    createUserValidation(reqParam, res, async (validate) => {
+    addUserValidation(reqParam, res, async (validate) => {
       if (validate) {
         const user = await User.findOne({
           username: reqParam.username,
@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
           res,
           newUser,
           META_CODE.SUCCES,
-          responseMessages.USER_CREATED
+          responseMessages.USER_ADDED
         );
       } else {
         return internalServerErrorResponse(res);

@@ -1,3 +1,5 @@
+import { responseMessages } from "../utils/messages.js";
+
 /**
  * @description This function use for format success response of rest api containing data
  * @param data
@@ -83,7 +85,7 @@ export const errorResponseWithoutData = (
   res,
   code = 0,
   message,
-  metaCode = null
+  metaCode = null,
 ) => {
   const response = {
     data: null,
@@ -124,7 +126,7 @@ export const validationErrorResponseData = (res, message, code = 400) => {
 export const internalServerErrorResponse = (res) => {
   const response = {
     code: 500,
-    message: res.__("internalError"),
+    message: responseMessages.INTERNAL_ERROR,
   };
   return res.status(500).send(response);
 };

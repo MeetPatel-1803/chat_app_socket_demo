@@ -3,13 +3,10 @@ export const USER_STATUS = {
   ONLINE: 1,
 };
 
-export const ROOM_TYPE = {
-  ONE_TO_ONE: 0,
-  PUBLIC: 1,
-  PRIVATE: 2,
-};
-
 export const META_CODE = {
   SUCCES: 1,
   FAIL: 0,
 };
+
+export const JWT_SECRET = process.env.JWT_SECRET || "SUPER_SECRET_KEY_123456";
+export const JWT_EXPIRES_IN = "1d";
